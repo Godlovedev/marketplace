@@ -9,15 +9,15 @@ export declare class CategoryController {
     }>;
     findAll(): Promise<{
         id: string;
-        name: string;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
     }[]>;
     findOne(id: string): Promise<{
         id: string;
-        name: string;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
     } | null>;
     update(id: string, updateCategoryDto: UpdateCategoryDto): Promise<{
         message: string;
