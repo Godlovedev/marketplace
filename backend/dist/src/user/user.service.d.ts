@@ -5,55 +5,55 @@ export declare class UserService {
     private prisma;
     constructor(prisma: PrismaService);
     create(createUserDto: CreateUserDto): Promise<{
-        id: string;
         firstName: string;
         lastName: string;
         email: string;
         password: string;
+        id: string;
         createdAt: Date;
         updatedAt: Date;
     }>;
     findAll(): Promise<{
-        id: string;
         firstName: string;
         lastName: string;
         email: string;
+        id: string;
         createdAt: Date;
         updatedAt: Date;
     }[]>;
     findOne(id: string): Promise<{
-        id: string;
         firstName: string;
         lastName: string;
         email: string;
         password: string;
+        id: string;
         createdAt: Date;
         updatedAt: Date;
     } | null>;
     findByEmail(email: string): Promise<{
-        id: string;
         firstName: string;
         lastName: string;
         email: string;
         password: string;
+        id: string;
         createdAt: Date;
         updatedAt: Date;
     } | null>;
     update(id: string, data: UpdatUserDto): Promise<{
-        id: string;
         firstName: string;
         lastName: string;
         email: string;
         password: string;
+        id: string;
         createdAt: Date;
         updatedAt: Date;
     }>;
     remove(id: string): Promise<{
-        id: string;
         firstName: string;
         lastName: string;
         email: string;
         password: string;
+        id: string;
         createdAt: Date;
         updatedAt: Date;
     }>;
