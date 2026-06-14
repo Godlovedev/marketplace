@@ -12,7 +12,7 @@ export function useRegister(){
         },
         onSuccess: (data) => {
             toast.success(data.message),
-            navigate("/login")
+            navigate("/admin/login")
         },
         onError: (error) => {
             toast.error(`une erreur est survenue: ${error.message}`)

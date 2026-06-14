@@ -72,7 +72,11 @@ export function Login(){
                     type="submit" 
                     className="btn h-12 min-h-12 flex-1 border-none bg-[#eab308] hover:bg-[#d4a007] text-[#1e3a8a] font-black tracking-wide text-sm shadow-md transition-all duration-200" disabled={isPending}
                     >
-                    SE CONNECTER
+                    {isPending ? (
+                        <span className="loading loading-spinner loading-sm"></span>
+                    ) : (
+                        "SE CONNECTER"
+                    )}
                     </button>
                 </div>
 
@@ -91,7 +95,7 @@ export function Login(){
                 {/* Lien d'inscription */}
                 <p className="text-sm text-[#374151]">
                 Pas encore de compte ?{' '}
-                <Link to="/register" className="font-bold text-[#1e3a8a] hover:underline">
+                <Link to="/admin/register" className="font-bold text-[#1e3a8a] hover:underline">
                     S'inscrire
                 </Link>
                 </p>

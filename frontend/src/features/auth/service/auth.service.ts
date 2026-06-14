@@ -8,7 +8,7 @@ export const authService = {
     },
 
     register: async (formData: FormData) => {
-        const data = Object.fromEntries(formData)
+        const data = Object.fromEntries(formData.entries())
         const response = await apiClient.post("/auth/register", data)
         return response.data
     }
