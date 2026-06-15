@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import {
   IsInt,
   IsOptional,
@@ -13,10 +14,12 @@ export class CreateProductDto {
   @IsString()
   description?: string;
 
+  @Transform(({ value }) => Number(value))
   @IsInt()
   @Min(0)
   price!: number;
 
+  @Transform(({ value }) => Number(value))
   @IsInt()
   @Min(0)
   stock!: number;
