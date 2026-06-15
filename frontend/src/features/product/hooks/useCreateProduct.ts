@@ -19,9 +19,7 @@ export function useCreateProduct(){
         },
     });
 
-    const handleCreate = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget)
+    const handleCreate = (formData: FormData) => {
         mutate(formData)
     }
 

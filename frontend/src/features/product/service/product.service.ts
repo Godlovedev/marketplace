@@ -13,7 +13,11 @@ export const productService = {
 
     create: async(formData: FormData) => {
         const data = Object.fromEntries(formData)
-        const response = await apiClient.post("/product", data)
+    const response = await apiClient.post("/product", data, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        }
+    })
         return response.data
     },
 

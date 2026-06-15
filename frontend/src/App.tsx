@@ -3,6 +3,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
 import { Login } from "./features/auth/pages/login";
 import { Register } from "./features/auth/pages/register";
 import { DashboardLayout } from "./components/layout/dashboardLayout";
+import Products from "./features/product/pages/product";
 
 function App() {
 
@@ -30,6 +31,10 @@ function App() {
                     {
                         path: "",
                         element: "petit test ici c'est le dashboard"
+                    },
+                    {
+                        path: "products",
+                        element: <Products />
                     }
                 ]
             }
