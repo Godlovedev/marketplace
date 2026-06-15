@@ -2,6 +2,7 @@ import { Toaster } from "react-hot-toast";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
 import { Login } from "./features/auth/pages/login";
 import { Register } from "./features/auth/pages/register";
+import { DashboardLayout } from "./components/layout/dashboardLayout";
 
 function App() {
 
@@ -24,10 +25,11 @@ function App() {
             },
             {
                 path: "dashboard",
+                element: <DashboardLayout />,
                 children: [
                     {
                         path: "",
-                        element: "petit test"
+                        element: "petit test ici c'est le dashboard"
                     }
                 ]
             }
