@@ -14,14 +14,14 @@ export const CategoryService = {
   },
 
   create: async (formData: FormData) => {
-    const data = Object.fromEntries(formData)
-    const response = await apiClient.post('/categories', { data });
+    const data = Object.fromEntries(formData.entries())
+    const response = await apiClient.post('/category', data);
     return response.data;
   },
 
   update: async (id: string, formData: FormData) => {
     const data = Object.fromEntries(formData)
-    const response = await apiClient.patch(`/category/${id}`, { data });
+    const response = await apiClient.patch(`/category/${id}`, data);
     return response.data;
   },
 

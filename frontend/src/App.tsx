@@ -4,6 +4,7 @@ import { Login } from "./features/auth/pages/login";
 import { Register } from "./features/auth/pages/register";
 import { DashboardLayout } from "./components/layout/dashboardLayout";
 import Products from "./features/product/pages/product";
+import Categories from "./features/category/pages/category";
 
 function App() {
 
@@ -35,6 +36,10 @@ function App() {
                     {
                         path: "products",
                         element: <Products />
+                    },
+                    {
+                        path: "category",
+                        element: <Categories />
                     }
                 ]
             }

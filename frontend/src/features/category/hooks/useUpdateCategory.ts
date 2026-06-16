@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CategoryService } from "../service/category.service";
 import toast from "react-hot-toast";
 
-export function useCreateCategory() {
+export function useUpdateCategory() {
   const queryClient = useQueryClient();
 
   const { mutate, isPending: isUpdatingCategory } = useMutation({
