@@ -2,19 +2,26 @@ import React from 'react';
 import { X } from 'lucide-react';
 import { useCreateProduct } from '../hooks/useCreateProduct';
 
+// Typage de la structure d'une catégorie
+interface Category {
+  id: string;
+  name: string;
+}
+
 interface AddProductModalProps {
   isOpen: boolean;
   onClose: () => void;
+  categories: Category[]; // 👈 On ajoute les catégories reçues dans les props
 }
 
-export function AddProductModal({ isOpen, onClose }: AddProductModalProps) {
+export function AddProductModal({ isOpen, onClose, categories }: AddProductModalProps) {
 
-    const {handleCreate, isPending: isCreating} = useCreateProduct()
+  const { handleCreate, isPending: isCreating } = useCreateProduct();
   
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget)
-    handleCreate(formData)
+    const formData = new FormData(e.currentTarget);
+    handleCreate(formData);
     onClose();
   };
 
@@ -54,9 +61,22 @@ export function AddProductModal({ isOpen, onClose }: AddProductModalProps) {
             </div>
           </div>
 
+          {/* LE SELECT DES CATÉGORIES À LA PLACE DE L'INPUT TEXTE */}
           <div className="form-control">
-            <label className="label font-bold text-sm text-gray-600">ID de la Catégorie</label>
-            <input type="text" name="categoryId" className="input input-bordered bg-[#f0f4f8] border-gray-200 focus:outline-none focus:border-[#1e3a8a] rounded-xl" required />
+            <label className="label font-bold text-sm text-gray-600">Catégorie</label>
+            <select 
+              name="categoryId" 
+              className="select select-bordered bg-[#f0f4f8] border-gray-200 focus:outline-none focus:border-[#1e3a8a] rounded-xl text-sm font-medium"
+              defaultValue=""
+              required
+            >
+              <option value="" disabled>Choisir une catégorie</option>
+              {categories?.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="form-control">

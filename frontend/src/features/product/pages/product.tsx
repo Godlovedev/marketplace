@@ -1,23 +1,36 @@
 import { useState } from 'react';
-import { Plus, Search, Edit2, Trash2, Package, Eye } from 'lucide-react';
+import { Plus, Search, Edit2, Trash2, Package } from 'lucide-react';
 import { useGetProducts } from '../hooks/useGetProduct';
 import { AddProductModal } from '../components/addModal';
 import type { Product } from '../../../types/product';
+import { DeleteProductModal } from '../components/deleteModal';
+import { UpdateProductModal } from '../components/updateModal';
+import { useGetCategories } from '../../category/hooks/useGetCategory';
 
 export default function Products() {
   // Récupération par déstructuration depuis ton hook TanStack Query
   const { products, isLoading } = useGetProducts();
   const [searchTerm, setSearchTerm] = useState("");
+  
+  // NOUVEAU : État pour stocker la catégorie sélectionnée pour le filtrage
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   // États pour contrôler l'ouverture des modals et stocker le produit ciblé
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [productToEdit, setProductToEdit] = useState<Product | null>(null);
   const [productToDelete, setProductToDelete] = useState<Product | null>(null);
 
-  // Filtrage
-  const filteredProducts = products?.filter((product: Product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  ) || [];
+  // recuperation des categories
+  const { category } = useGetCategories();
+
+  // NOUVEAU : Filtrage combiné par texte ET par catégorie
+  const filteredProducts = products?.filter((product: Product) => {
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    // Si selectedCategory est vide, on laisse passer tous les produits, sinon on vérifie l'ID
+    const matchesCategory = selectedCategory === "" || product.categoryId === selectedCategory;
+    
+    return matchesSearch && matchesCategory;
+  }) || [];
 
   if (isLoading) return <div className="p-6 text-center"><span className="loading loading-spinner loading-lg text-[#1e3a8a]"></span></div>;
 
@@ -25,16 +38,17 @@ export default function Products() {
     <div className="space-y-6">
       
       {/* HEADER BAR */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
         <div>
           <h1 className="text-2xl font-black text-[#1e3a8a] tracking-tight flex items-center gap-2">
             <Package className="w-6 h-6 text-[#eab308]" />
             Gestion des Produits
           </h1>
-          <p className="text-sm text-gray-500 mt-0.5">Total : {filteredProducts.length} produits</p>
+          <p className="text-sm text-gray-500 mt-0.5">Total affiché : {filteredProducts.length} produits</p>
         </div>
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          {/* BARRE DE RECHERCHE TEXTE */}
           <label className="input input-bordered flex items-center gap-2 bg-[#f0f4f8] border-gray-200 h-11 focus-within:outline-none focus-within:border-[#1e3a8a] rounded-xl w-full sm:w-64">
             <Search className="w-4 h-4 text-gray-400 shrink-0" />
             <input 
@@ -46,10 +60,24 @@ export default function Products() {
             />
           </label>
 
+          {/* NOUVEAU : BEAU SELECT DE FILTRAGE PAR CATÉGORIE */}
+          <select 
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="select select-bordered bg-[#f0f4f8] border-gray-200 h-11 min-h-11 focus:outline-none focus:border-[#1e3a8a] rounded-xl text-sm text-[#374151] font-medium w-full sm:w-56"
+          >
+            <option value="">Toutes les catégories</option>
+            {category?.map((cat: any) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
+
           {/* Ouvre le modal d'ajout */}
           <button 
             onClick={() => setIsAddOpen(true)}
-            className="btn h-11 min-h-11 border-none bg-[#eab308] hover:bg-[#d4a007] text-[#1e3a8a] font-black rounded-xl shadow-md flex items-center justify-center gap-2"
+            className="btn h-11 min-h-11 border-none bg-[#eab308] hover:bg-[#d4a007] text-[#1e3a8a] font-black rounded-xl shadow-md flex items-center justify-center gap-2 shrink-0"
           >
             <Plus className="w-5 h-5" strokeWidth={2.5} />
             AJOUTER UN PRODUIT
@@ -91,7 +119,7 @@ export default function Products() {
                       {product.category?.name}
                     </span>
                   </td>
-                  <td className="font-black text-[#1e3a8a]">{(product.price / 100).toFixed(2)} €</td>
+                  <td className="font-black text-[#1e3a8a]">{product.price} FCFA</td>
                   <td>
                     {product.stock > 0 ? (
                       <span className="text-success font-bold text-sm">{product.stock} en stock</span>
@@ -122,10 +150,9 @@ export default function Products() {
         </div>
       </div>
 
-      {/* MODALS EXTERNALISÉS */}
-      {isAddOpen && <AddProductModal isOpen={isAddOpen} onClose={() => setIsAddOpen(false)} />}
-      {/* {productToEdit && <EditProductModal product={productToEdit} onClose={() => setProductToEdit(null)} />}
-      {productToDelete && <DeleteProductModal product={productToDelete} onClose={() => setProductToDelete(null)} />} */}
+      {isAddOpen && <AddProductModal categories={category} isOpen={isAddOpen} onClose={() => setIsAddOpen(false)} />}
+      {productToEdit && <UpdateProductModal categories={category} product={productToEdit} onClose={() => setProductToEdit(null)} />}
+      {productToDelete && <DeleteProductModal product={productToDelete} onClose={() => setProductToDelete(null)} />}
 
     </div>
   );

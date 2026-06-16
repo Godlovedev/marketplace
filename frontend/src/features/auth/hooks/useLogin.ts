@@ -14,8 +14,8 @@ export function useLogin(){
             const token = data.access_token
             if(token){
                 localStorage.setItem("token", token)
-                toast.success(data.message),
-                navigate("/dashboard")
+                toast.success("Connexion"),
+                navigate("/admin/dashboard")
             }
         },
         onError: (error) => {
