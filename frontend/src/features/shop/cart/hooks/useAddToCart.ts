@@ -35,7 +35,8 @@ export function useCart(){
             newCart = [...cart, newItem]
         }
 
-        localStorage.setItem("cart", JSON.stringify(newCart))
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        window.dispatchEvent(new Event('storage'));
     }
 
     return {

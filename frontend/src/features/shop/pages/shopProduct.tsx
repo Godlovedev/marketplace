@@ -206,8 +206,8 @@ export function ShopProducts() {
           <div className="p-4 border-t border-gray-100 bg-[#f8fafc] flex justify-end">
             <button 
               onClick={() => {
-                alert(`Ajouté au panier : ${selectedProductForModal?.name}`);
-                closeModal();
+                addToCart(selectedProductForModal);
+                closeModal()
               }}
               className="bg-[#eab308] hover:bg-[#d4a007] text-[#1e3a8a] font-black text-xs py-2.5 px-6 rounded-xl flex items-center gap-2 border-b-2 border-[#b88a06] shadow-sm transition-all active:scale-[0.98]"
             >

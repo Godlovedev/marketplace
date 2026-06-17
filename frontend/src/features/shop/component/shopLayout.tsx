@@ -1,12 +1,33 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, NavLink } from 'react-router';
-import { ShoppingCart, ShoppingBag } from 'lucide-react'; // Ajout de ShoppingBag
+import { ShoppingCart, ShoppingBag } from 'lucide-react';
+import { CartModal } from '../cart/component/cartModal';
 
 export function ShopLayout() {
+  // 1. États pour la modale et le compteur du badge
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+
+  const updateCartCount = () => {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    setCartCount(cart.length); 
+  };
+
   useEffect(() => {
+    // Initialisation sécurisée du localStorage
     if (!localStorage.getItem('cart')) {
       localStorage.setItem('cart', JSON.stringify([]));
     }
+    
+    // Calcul initial au chargement
+    updateCartCount();
+
+    // Écouter les changements du localStorage pour synchroniser le badge en temps réel
+    window.addEventListener('storage', updateCartCount);
+    
+    return () => {
+      window.removeEventListener('storage', updateCartCount);
+    };
   }, []);
 
   // Style pour le lien actif de la navbar
@@ -49,15 +70,16 @@ export function ShopLayout() {
             </nav>
           </div>
 
-          {/* ICÔNE DU PANIER (Placée naturellement tout à droite grâce au justify-between) */}
+          {/* ICÔNE DU PANIER DYNAMIQUE */}
           <button 
-            onClick={() => alert("Panier en cours de développement...")}
+            onClick={() => setIsCartOpen(true)} // 👈 Ouvre la modale au clic
             className="btn btn-ghost btn-circle text-[#1e3a8a] bg-gray-50 hover:bg-gray-100 relative border border-gray-200/60 shadow-sm"
           >
             <div className="indicator">
               <ShoppingBag className="w-5 h-5" strokeWidth={2.5} />
+              {/* Le badge affiche désormais le vrai compte dynamique */}
               <span className="badge badge-sm indicator-item bg-[#eab308] border-none text-[#1e3a8a] font-black h-4 w-4 p-0">
-                0
+                {cartCount}
               </span>
             </div>
           </button>
@@ -74,6 +96,9 @@ export function ShopLayout() {
       <footer className="bg-gray-900 text-gray-400 text-center py-6 text-sm border-t border-gray-800 mt-auto">
         &copy; {new Date().getFullYear()} E-Shop. Tous droits réservés.
       </footer>
+
+      {/* 3. L'INJECTION DE LA MODALE DU PANIER */}
+      <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </div>
   );
 }
