@@ -13,6 +13,7 @@ interface Product {
   price: number;
   stock: number;
   categoryId: string;
+  description: string; // 👈 1. AJOUT DANS L'INTERFACE TYPESCRIPT
 }
 
 interface UpdateProductModalProps {
@@ -96,6 +97,20 @@ export function UpdateProductModal({ product, categories, onClose }: UpdateProdu
                 </option>
               ))}
             </select>
+          </div>
+
+          {/* 2. AJOUT DU CHAMP TEXTAREA POUR LE MARKDOWN */}
+          <div className="form-control flex-col flex gap-1">
+            <label className="label font-bold text-sm text-gray-600" htmlFor="description">
+              Description du produit (Supporte le Markdown)
+            </label>
+            <textarea 
+              id="description"
+              name="description" 
+              className="textarea textarea-bordered bg-[#f0f4f8] border-gray-200 focus:outline-none focus:border-[#1e3a8a] rounded-xl text-sm h-32 resize-none"
+              placeholder="Ex: # Titre du produit&#10;* Caractéristique 1&#10;**Texte en gras**"
+              defaultValue={product.description}
+            />
           </div>
 
           {/* Actions */}
