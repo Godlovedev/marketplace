@@ -54,7 +54,7 @@ export class OrderService {
             },
             },
             include: {
-            items: true,
+            items: {include: {product: true}},
             },
         });
 

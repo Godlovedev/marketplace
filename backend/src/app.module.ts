@@ -6,12 +6,13 @@ import { ProductModule } from './product/product.module';
 import { CategoryModule } from './category/category.module';
 import { UploadModule } from './upload/upload.module';
 import { OrderModule } from './order/order.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 
 @Module({
   imports: [AuthModule, UserModule, ConfigModule.forRoot({
   isGlobal: true,
-  }), ProductModule, CategoryModule, UploadModule, OrderModule]
+  }), ProductModule, CategoryModule, UploadModule, OrderModule, DashboardModule]
 
 })
 export class AppModule {}

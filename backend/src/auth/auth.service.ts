@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
@@ -13,7 +13,7 @@ export class AuthService {
     const existingUser = await this.userService.findByEmail(createUserDto.email);
 
     if (existingUser) {
-      throw new ConflictException('Cette email existe deja en base de données');
+      throw new ConflictException('Une erreur est survenue !');
     }
 
     const hashedPassword = await hash(createUserDto.password, 10);
@@ -30,13 +30,13 @@ export class AuthService {
     const user = await this.userService.findByEmail(email);
 
     if (!user) {
-      throw new NotFoundException("Cette utilisateur n'esxiste pas");
+      throw new UnauthorizedException("Email ou mot de passe incorrect!");
     }
 
     const isPasswordValid = await compare(password, user.password);
 
     if (!isPasswordValid) {
-      throw new ConflictException('Mot de passe incorrect');
+      throw new UnauthorizedException("Email ou mot de passe incorrect!");
     }
 
     const payload = {

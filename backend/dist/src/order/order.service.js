@@ -54,7 +54,7 @@ let OrderService = class OrderService {
                 },
             },
             include: {
-                items: true,
+                items: { include: { product: true } },
             },
         });
         const admins = await this.prisma.user.findMany();

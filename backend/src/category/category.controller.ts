@@ -4,12 +4,12 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
-@UseGuards(JwtAuthGuard)
 @Controller('category')
 export class CategoryController {
     constructor(private readonly categoryService: CategoryService){}
 
     @Post()
+    @UseGuards(JwtAuthGuard)
     async create(@Body() createCategoryDto: CreateCategoryDto) {
         return await this.categoryService.create(createCategoryDto);
     }
@@ -25,6 +25,7 @@ export class CategoryController {
     }
 
     @Patch(':id')
+    @UseGuards(JwtAuthGuard)
     async update(
         @Param('id') id: string,
         @Body() updateCategoryDto: UpdateCategoryDto,
@@ -33,6 +34,7 @@ export class CategoryController {
     }
 
     @Delete(':id')
+    @UseGuards(JwtAuthGuard)
     remove(@Param('id') id: string) {
         return this.categoryService.remove(id);
     }

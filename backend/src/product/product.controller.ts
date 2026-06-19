@@ -6,12 +6,12 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UploadService } from 'src/upload/upload.service';
 import { UpdateProductDto } from './dto/update-product.dto';
 
-@UseGuards(JwtAuthGuard)
 @Controller('product')
 export class ProductController {
     constructor(private readonly productService: ProductService, private readonly uploadService: UploadService){}
 
     @Post()
+    @UseGuards(JwtAuthGuard)
     @UseInterceptors(FileInterceptor('file'))
     async create(@Body() createProductDto: CreateProductDto, @UploadedFile() file: any) {
     const imageUrl = await this.uploadService.uploadImage(file) as string;
@@ -26,12 +26,14 @@ export class ProductController {
 
     // GET ONE PRODUCT
     @Get(':id')
+    @UseGuards(JwtAuthGuard)
     async findOne(@Param('id') id: string) {
         return await this.productService.findOne(id);
     }
 
     // UPDATE PRODUCT
     @Patch(':id')
+    @UseGuards(JwtAuthGuard)
     async update(
         @Param('id') id: string,
         @Body() updateProductDto: UpdateProductDto,
@@ -41,6 +43,7 @@ export class ProductController {
 
     // DELETE PRODUCT
     @Delete(':id')
+    @UseGuards(JwtAuthGuard)
     async remove(@Param('id') id: string) {
         return await this.productService.remove(id);
     }

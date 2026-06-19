@@ -24,7 +24,7 @@ let AuthService = class AuthService {
     async register(createUserDto) {
         const existingUser = await this.userService.findByEmail(createUserDto.email);
         if (existingUser) {
-            throw new common_1.ConflictException('Cette email existe deja en base de données');
+            throw new common_1.ConflictException('Une erreur est survenue !');
         }
         const hashedPassword = await (0, bcrypt_1.hash)(createUserDto.password, 10);
         const user = await this.userService.create({
@@ -36,11 +36,11 @@ let AuthService = class AuthService {
     async login(email, password) {
         const user = await this.userService.findByEmail(email);
         if (!user) {
-            throw new common_1.NotFoundException("Cette utilisateur n'esxiste pas");
+            throw new common_1.UnauthorizedException("Email ou mot de passe incorrect!");
         }
         const isPasswordValid = await (0, bcrypt_1.compare)(password, user.password);
         if (!isPasswordValid) {
-            throw new common_1.ConflictException('Mot de passe incorrect');
+            throw new common_1.UnauthorizedException("Email ou mot de passe incorrect!");
         }
         const payload = {
             sub: user.id,
