@@ -2,10 +2,11 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderStatusDto } from './dto/updateStatus.dto';
+import { MailService } from 'src/mail.service';
 
 @Injectable()
 export class OrderService {
-    constructor(private readonly prisma: PrismaService){}
+    constructor(private readonly prisma: PrismaService, private readonly mailService: MailService){}
 
     async create(createOrderDto: CreateOrderDto) {
         const { items, customerName, customerPhone, pickupLocation } =
@@ -14,7 +15,7 @@ export class OrderService {
         const products = await this.prisma.product.findMany({
             where: {
             id: {
-                in: items.map((item) => item.productId),
+                in: items?.map((item) => item.productId),
             },
             },
         });
@@ -41,7 +42,7 @@ export class OrderService {
             };
         });
 
-        await this.prisma.order.create({
+        const newOrder = await this.prisma.order.create({
             data: {
             customerName,
             customerPhone,
@@ -57,6 +58,10 @@ export class OrderService {
             },
         });
 
+        const admins = await this.prisma.user.findMany()
+        const adminEmails = admins.map((admin) => admin.email)
+
+        await this.mailService.sendOrderNotificationEmailToAdmins(newOrder, adminEmails)
         return {message: "Commande envoyée."}
     };
 

@@ -14,6 +14,7 @@ const config_1 = require("@nestjs/config");
 const product_module_1 = require("./product/product.module");
 const category_module_1 = require("./category/category.module");
 const upload_module_1 = require("./upload/upload.module");
+const order_module_1 = require("./order/order.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -21,7 +22,7 @@ exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [auth_module_1.AuthModule, user_module_1.UserModule, config_1.ConfigModule.forRoot({
                 isGlobal: true,
-            }), product_module_1.ProductModule, category_module_1.CategoryModule, upload_module_1.UploadModule]
+            }), product_module_1.ProductModule, category_module_1.CategoryModule, upload_module_1.UploadModule, order_module_1.OrderModule]
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
