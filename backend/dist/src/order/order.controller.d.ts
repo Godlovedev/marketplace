@@ -17,18 +17,18 @@ export declare class OrderController {
                 description: string | null;
                 price: number;
                 stock: number;
-                categoryId: string;
                 imageUrl: string;
                 isActive: boolean;
+                categoryId: string;
             };
         } & {
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            productId: string;
             quantity: number;
             unitPrice: number;
             orderId: string;
+            productId: string;
         })[];
     } & {
         id: string;
@@ -37,8 +37,8 @@ export declare class OrderController {
         customerName: string;
         customerPhone: string;
         pickupLocation: string;
-        status: import("../../generated/prisma/enums").OrderStatus;
         totalPrice: number;
+        status: import("../../generated/prisma/enums").OrderStatus;
     })[]>;
     findOne(id: string): Promise<({
         items: ({
@@ -50,18 +50,18 @@ export declare class OrderController {
                 description: string | null;
                 price: number;
                 stock: number;
-                categoryId: string;
                 imageUrl: string;
                 isActive: boolean;
+                categoryId: string;
             };
         } & {
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            productId: string;
             quantity: number;
             unitPrice: number;
             orderId: string;
+            productId: string;
         })[];
     } & {
         id: string;
@@ -70,8 +70,8 @@ export declare class OrderController {
         customerName: string;
         customerPhone: string;
         pickupLocation: string;
-        status: import("../../generated/prisma/enums").OrderStatus;
         totalPrice: number;
+        status: import("../../generated/prisma/enums").OrderStatus;
     }) | null>;
     updateStatus(id: string, updateOrderStatusDto: UpdateOrderStatusDto): Promise<{
         id: string;
@@ -80,7 +80,7 @@ export declare class OrderController {
         customerName: string;
         customerPhone: string;
         pickupLocation: string;
-        status: import("../../generated/prisma/enums").OrderStatus;
         totalPrice: number;
+        status: import("../../generated/prisma/enums").OrderStatus;
     }>;
 }

@@ -24,9 +24,9 @@ export declare class ProductController {
         description: string | null;
         price: number;
         stock: number;
-        categoryId: string;
         imageUrl: string;
         isActive: boolean;
+        categoryId: string;
     })[]>;
     findOne(id: string): Promise<({
         category: {
@@ -43,9 +43,9 @@ export declare class ProductController {
         description: string | null;
         price: number;
         stock: number;
-        categoryId: string;
         imageUrl: string;
         isActive: boolean;
+        categoryId: string;
     }) | null>;
     update(id: string, updateProductDto: UpdateProductDto): Promise<{
         message: string;
