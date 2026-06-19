@@ -96,7 +96,7 @@ export function DashboardLayout(){
                         </li>
                         <li>
                             <NavLink 
-                                to="/admin/orders" 
+                                to="/admin/dashboard/orders" 
                                 onClick={() => { if(window.innerWidth < 768) setIsSidebarOpen(false) }}
                                 className={({ isActive }) => `flex items-center gap-4 py-3 px-4 rounded-xl font-medium transition-all ${isActive ? 'bg-[#eab308] text-[#1e3a8a] font-bold shadow-md' : 'hover:bg-blue-800 text-blue-100'}`}
                             >

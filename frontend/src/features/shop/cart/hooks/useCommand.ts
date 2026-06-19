@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { cartService } from '../service/cart.service';
+import toast from 'react-hot-toast';
 
-interface OrderPayload {
+export interface OrderPayload {
   customerName: string;
   customerPhone: string;
   pickupLocation: string;
@@ -11,15 +13,25 @@ interface OrderPayload {
 }
 
 export function useCommande() {
-  const [isPending, setIsPending] = useState(false);
+  const queryClient = useQueryClient();
 
+  // On utilise le "isPending" natif de TanStack Query
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (orderPayload: OrderPayload) => {
+      return cartService.createOrder(orderPayload);
+    },
+    onError: (error: any) => {
+      toast.error(`Une erreur est survenue: ${error.message || "Erreur serveur"}`);
+    },
+  });
+
+  // On rajoute le paramètre "onSuccessCallback" à la fonction
   const createCommande = async (
     e: React.FormEvent<HTMLFormElement>, 
     cartItems: any[], 
-    onSuccess: () => void
+    onSuccessCallback: () => void
   ) => {
     e.preventDefault();
-    setIsPending(true);
 
     try {
       const formData = new FormData(e.currentTarget);
@@ -28,8 +40,7 @@ export function useCommande() {
       const pickupLocation = formData.get('pickupLocation') as string;
 
       if (!customerName || !customerPhone) {
-        alert("Veuillez remplir tous les champs s'il vous plaît !");
-        setIsPending(false);
+        toast.error("Veuillez remplir tous les champs s'il vous plaît !");
         return;
       }
 
@@ -43,23 +54,20 @@ export function useCommande() {
         customerPhone,
         pickupLocation,
         items: cleanedItems
-      };    
+      };
 
-      console.log("=== DONNÉES REÇUES DANS LE HOOK ===");
-      console.log(orderData);
-
-      // Simulation d'une attente réseau de 1 seconde avant de valider
-      setTimeout(() => {
-        onSuccess(); // 👈 APPEL CRITIQUE : Déclenche la suite dans la modale
-        setIsPending(false);
-      }, 1000);
+      mutate(orderData, {
+        onSuccess: (data) => {
+          toast.success(data.message || "Commande validée !");
+          queryClient.invalidateQueries({ queryKey: ["orders"] });
+          onSuccessCallback();
+        }
+      });
 
     } catch (error) {
-      console.error("Erreur réseau :", error);
-      alert("Impossible de joindre le serveur. Vérifiez votre connexion.");
-      setIsPending(false);
+      console.error("Erreur formulaire :", error);
+      toast.error("Une erreur interne est survenue.");
     }
-    // Note : On retire le "finally" temporairement car le setTimeout gère la fin de l'asynchronisme local
   };
 
   return {

@@ -8,6 +8,7 @@ import Categories from "./features/category/pages/category";
 import { ShopLayout } from "./features/shop/component/shopLayout";
 import { ShopHome } from "./features/shop/pages/shopHome";
 import { ShopProducts } from "./features/shop/pages/shopProduct";
+import { AdminOrders } from "./features/product/pages/adminOrder";
 
 function App() {
 
@@ -43,6 +44,10 @@ function App() {
                     {
                         path: "category",
                         element: <Categories />
+                    },
+                    {
+                        path: "orders",
+                        element: <AdminOrders />
                     }
                 ]
             }
