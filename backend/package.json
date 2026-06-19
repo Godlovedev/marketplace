@@ -16,6 +16,7 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main.js",
+    "build:render": "npm install && npx prisma generate && npm run build",
 
     "prisma:generate": "prisma generate",
     "postinstall": "prisma generate",
