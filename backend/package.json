@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
 
   "engines": {
-    "node": ">=20 <23"
+    "node": "20.x"
   },
 
   "scripts": {
@@ -17,11 +17,8 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main.js",
 
-    "postinstall": "prisma generate",
-
     "prisma:generate": "prisma generate",
-
-    "build:render": "npm install && npm run prisma:generate && npm run build",
+    "postinstall": "prisma generate",
 
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -77,7 +74,7 @@
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
     "@types/multer": "^2.1.0",
-    "@types/node": "^24.0.0",
+    "@types/node": "^20.0.0",
     "@types/nodemailer": "^8.0.1",
     "@types/passport-jwt": "^4.0.1",
     "@types/supertest": "^7.0.0",
@@ -101,17 +98,5 @@
 
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.20.0"
-  },
-
-  "jest": {
-    "moduleFileExtensions": ["js", "json", "ts"],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": ["**/*.(t|j)s"],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
   }
 }
