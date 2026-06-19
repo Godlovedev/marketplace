@@ -12,6 +12,7 @@ export function useUpdateOrderStatus() {
     onSuccess: (data) => {
       toast.success(data?.message || "Statut mis à jour !");
       queryClient.invalidateQueries({ queryKey: ["orders"] });
+      queryClient.invalidateQueries({queryKey: ["dashboard"]})
     },
     onError: (error: any) => {
       toast.error(`Erreur : ${error.message || "Impossible de changer le statut"}`);

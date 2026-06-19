@@ -9,6 +9,7 @@ import { ShopLayout } from "./features/shop/component/shopLayout";
 import { ShopHome } from "./features/shop/pages/shopHome";
 import { ShopProducts } from "./features/shop/pages/shopProduct";
 import { AdminOrders } from "./features/product/pages/adminOrder";
+import DashboardAdminPage from "./features/product/pages/adminDashboard";
 
 function App() {
 
@@ -35,7 +36,7 @@ function App() {
                 children: [
                     {
                         path: "",
-                        element: "petit test ici c'est le dashboard"
+                        element: <DashboardAdminPage />
                     },
                     {
                         path: "products",

@@ -21,7 +21,7 @@ export function AdminOrders() {
 
   // États pour les filtres
   const [filterStatus, setFilterStatus] = useState<'PENDING' | 'DELIVERED' | 'CANCELLED' | 'ALL'>('PENDING');
-  const [searchQuery, setSearchQuery] = useState(''); // 👈 État pour la barre de recherche
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Logique combinée : Filtrage par statut + Recherche textuelle
   const filteredOrders = orders.filter((order: Order) => {
@@ -150,7 +150,7 @@ export function AdminOrders() {
               {/* Articles Commandés (Milieu) */}
               <div className="p-4 flex-[1.5] space-y-2 flex flex-col justify-center">
                 <span className="text-[10px] font-black uppercase text-gray-400 tracking-wider">Articles commandés</span>
-                <div className="space-y-1 max-h-[150px] overflow-y-auto scrollbar-none">
+                <div className="space-y-1 max-h-37.5 overflow-y-auto scrollbar-none">
                   {order.items.map((item, idx) => (
                     <div key={idx} className="flex items-center justify-between text-xs bg-gray-50 px-2.5 py-1.5 rounded-lg border border-gray-100">
                       <span className="font-bold text-gray-800">{item.product?.name || `Produit #${item.productId}`}</span>

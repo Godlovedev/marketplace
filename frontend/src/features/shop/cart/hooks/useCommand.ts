@@ -60,6 +60,7 @@ export function useCommande() {
         onSuccess: (data) => {
           toast.success(data.message || "Commande validée !");
           queryClient.invalidateQueries({ queryKey: ["orders"] });
+          queryClient.invalidateQueries({queryKey: ["dashboard"]})
           onSuccessCallback();
         }
       });
