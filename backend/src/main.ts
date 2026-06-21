@@ -9,7 +9,7 @@ async function bootstrap() {
     transform: true
   }));
   app.enableCors({
-    origin: ['https://r-livraisons.vercel.app/', 'http://localhost:5173'],
+    origin: ['https://r-livraisons.vercel.app', 'http://localhost:5173'],
     // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
