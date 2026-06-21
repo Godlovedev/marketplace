@@ -9,9 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateOrderStatusDto = void 0;
-const client_1 = require("@prisma/client");
+exports.UpdateOrderStatusDto = exports.OrderStatus = void 0;
 const class_validator_1 = require("class-validator");
+var OrderStatus;
+(function (OrderStatus) {
+    OrderStatus["PENDING"] = "PENDING";
+    OrderStatus["DELIVERED"] = "DELIVERED";
+    OrderStatus["CANCELLED"] = "CANCELLED";
+})(OrderStatus || (exports.OrderStatus = OrderStatus = {}));
 class UpdateOrderStatusDto {
     status;
 }

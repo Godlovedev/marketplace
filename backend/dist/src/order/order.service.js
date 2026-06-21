@@ -59,7 +59,7 @@ let OrderService = class OrderService {
         });
         const admins = await this.prisma.user.findMany();
         const adminEmails = admins.map((admin) => admin.email);
-        await this.mailService.sendOrderNotificationEmailToAdmins(newOrder, adminEmails);
+        this.mailService.sendOrderNotificationEmailToAdmins(newOrder, adminEmails);
         return { message: "Commande envoyée." };
     }
     ;

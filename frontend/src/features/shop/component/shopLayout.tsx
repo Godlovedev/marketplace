@@ -43,10 +43,10 @@ export function ShopLayout() {
         <div className="max-w-5xl mx-auto flex items-center justify-between px-4">
           
           {/* Bloc de gauche (Logo + Nav) préservé et aligné */}
-          <div className="flex items-center justify-start gap-16">
+          <div className="flex items-center  justify-start md:gap-16 gap-3">
             {/* LOGO E-SHOP COMMERCE */}
             <NavLink to="/shop" className="flex items-center gap-3 select-none">
-              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-[#eab308] text-[#1e3a8a] shadow-sm">
+              <div className="flex items-center justify-center w-12  h-12 rounded-full bg-[#eab308] text-[#1e3a8a] shadow-sm">
                 <ShoppingCart className="w-6 h-6" strokeWidth={2.5} />
               </div>
               <div className="flex flex-col text-left leading-none">
@@ -73,7 +73,7 @@ export function ShopLayout() {
           {/* ICÔNE DU PANIER DYNAMIQUE */}
           <button 
             onClick={() => setIsCartOpen(true)} // 👈 Ouvre la modale au clic
-            className="btn btn-ghost btn-circle text-[#1e3a8a] bg-gray-50 hover:bg-gray-100 relative border border-gray-200/60 shadow-sm"
+            className="btn btn-ghost ml-2 btn-circle text-[#1e3a8a] bg-gray-50 hover:bg-gray-100 relative border border-gray-200/60 shadow-sm"
           >
             <div className="indicator">
               <ShoppingBag className="w-5 h-5" strokeWidth={2.5} />

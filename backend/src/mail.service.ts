@@ -38,7 +38,7 @@ export class MailService {
 
       // Envoi de l'e-mail
       await this.transporter.sendMail({
-        from: `"Boutique" <${process.env.GMAIL_USER}>`, // L'expéditeur affiché
+        from: `"R-livraisons" <${process.env.GMAIL_USER}>`, // L'expéditeur affiché
         to: adminEmails.join(', '), // Nodemailer accepte une chaîne d'e-mails séparés par des virgules
         subject: `🚨 Nouvelle commande reçue ! (${newOrder.id})`,
         html: `

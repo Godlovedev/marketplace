@@ -73,7 +73,7 @@ let MailService = MailService_1 = class MailService {
         `)
                 .join('');
             await this.transporter.sendMail({
-                from: `"Boutique" <${process.env.GMAIL_USER}>`,
+                from: `"R-livraisons" <${process.env.GMAIL_USER}>`,
                 to: adminEmails.join(', '),
                 subject: `🚨 Nouvelle commande reçue ! (${newOrder.id})`,
                 html: `

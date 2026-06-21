@@ -9,7 +9,10 @@ async function bootstrap() {
         whitelist: true,
         transform: true
     }));
-    app.enableCors();
+    app.enableCors({
+        origin: ['https://r-livraisons.vercel.app', 'http://localhost:5173'],
+        credentials: true,
+    });
     await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
