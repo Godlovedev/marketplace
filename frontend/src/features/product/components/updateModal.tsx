@@ -7,17 +7,8 @@ interface Category {
   name: string;
 }
 
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  stock: number;
-  categoryId: string;
-  description: string; // 👈 1. AJOUT DANS L'INTERFACE TYPESCRIPT
-}
-
 interface UpdateProductModalProps {
-  product: Product;
+  product: any;
   categories: Category[];
   onClose: () => void;
 }

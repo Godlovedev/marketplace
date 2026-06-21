@@ -150,7 +150,7 @@ export default function Products() {
         </div>
       </div>
 
-      {isAddOpen && <AddProductModal categories={category} isOpen={isAddOpen} onClose={() => setIsAddOpen(false)} />}
+      {isAddOpen && <AddProductModal categories={category} onClose={() => setIsAddOpen(false)} />}
       {productToEdit && <UpdateProductModal categories={category} product={productToEdit} onClose={() => setProductToEdit(null)} />}
       {productToDelete && <DeleteProductModal product={productToDelete} onClose={() => setProductToDelete(null)} />}
 

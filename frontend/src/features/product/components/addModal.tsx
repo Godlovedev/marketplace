@@ -9,12 +9,11 @@ interface Category {
 }
 
 interface AddProductModalProps {
-  isOpen: boolean;
   onClose: () => void;
-  categories: Category[]; // 👈 On ajoute les catégories reçues dans les props
+  categories: Category[];
 }
 
-export function AddProductModal({ isOpen, onClose, categories }: AddProductModalProps) {
+export function AddProductModal({ onClose, categories }: AddProductModalProps) {
 
   const { handleCreate, isPending: isCreating } = useCreateProduct();
   
