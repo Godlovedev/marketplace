@@ -21,6 +21,7 @@ function App() {
     },
     {
         path: "/admin",
+        element: <Navigate to={"/admin/login"} />,
         children: [
             {
                 path: "login",
