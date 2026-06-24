@@ -1,11 +1,28 @@
-import { MapPin, HandCoins } from 'lucide-react';
+import { MessageSquare, Truck, Wallet, CheckCircle2 } from 'lucide-react';
 
 export function ShopHome() {
 
-  const pointsDeRetrait = [
-    { lieu: "Grand Marché", desc: "Près du hangar central" },
-    { lieu: "Gare Centrale", desc: "Devant le hall d'attente principal" },
-    { lieu: "Quartier Administratif", desc: "En face de la poste centrale" }
+  const etapesCommande = [
+    {
+      icon: <CheckCircle2 className="w-6 h-6 text-amber-600" />,
+      titre: "1. Passez commande",
+      desc: "Remplissez votre panier et validez vos informations sur le site en laissant votre numéro de téléphone."
+    },
+    {
+      icon: <MessageSquare className="w-6 h-6 text-amber-600" />,
+      titre: "2. Contact WhatsApp",
+      desc: "Le vendeur prend directement contact avec vous sur WhatsApp grâce au numéro fourni."
+    },
+    {
+      icon: <Truck className="w-6 h-6 text-amber-600" />,
+      titre: "3. Livraison sur-mesure",
+      desc: "Vous discutez et convenez ensemble du lieu de livraison ainsi que des frais d'envoi."
+    },
+    {
+      icon: <Wallet className="w-6 h-6 text-amber-600" />,
+      titre: "4. Paiement par dépôt",
+      desc: "Les détails du paiement (dépôt ou transfert) sont fixés directement avec le vendeur lors de l'échange."
+    }
   ];
 
   const handleFeedbackSubmit = (e: React.FormEvent) => {
@@ -14,73 +31,72 @@ export function ShopHome() {
   };
 
   return (
-    <div className="space-y-12 max-w-6xl mx-auto">
+    <div className="space-y-12 max-w-6xl mx-auto px-4 md:px-0">
+      
       {/* SECTION BIENVENUE */}
       <section className="text-center py-8 space-y-4 max-w-2xl mx-auto">
         <h1 className="text-3xl md:text-4xl font-black text-[#1e3a8a] leading-tight">
           Bienvenue sur notre <span className="text-[#eab308]">Marketplace</span>
         </h1>
         <p className="text-gray-600 md:text-lg">
-          Découvrez notre catalogue de produits, passez votre commande en quelques clics et récupérez vos articles en toute sécurité.
+          Découvrez notre catalogue de produits, passez votre commande et bénéficiez d'un suivi 100% personnalisé.
         </p>
       </section>
 
-      {/* SECTION LOGISTIQUE (LIVRAISON & PAIEMENT) */}
-      <section className="grid md:grid-cols-2 gap-8">
-        {/* Points de réception */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200/80 space-y-4">
-          <div className="flex items-center gap-3 text-[#1e3a8a]">
-            <div className="p-3 bg-blue-50 text-[#1e3a8a] rounded-xl border border-blue-100">
-              <MapPin />
-            </div>
-            <h2 className="text-xl font-bold">Nos 3 Points de Réception</h2>
-          </div>
-          <p className="text-sm text-gray-500">Pour simplifier la récupération, vos colis sont acheminés exclusivement vers ces trois points précis :</p>
-          <ul className="space-y-3 pt-2">
-            {pointsDeRetrait.map((item, index) => (
-              <li key={index} className="flex gap-3 items-start">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#eab308] text-[#1e3a8a] text-xs font-black mt-0.5 shadow-sm">
-                  {index + 1}
-                </span>
-                <div>
-                  <h4 className="font-bold text-gray-800">{item.lieu}</h4>
-                  <p className="text-xs text-gray-500">{item.desc}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
+      {/* SECTION INFOS / FONCTIONNEMENT */}
+      <section className="space-y-6">
+        <div className="text-center">
+          <h2 className="text-2xl font-black text-[#1e3a8a]">
+            Comment ça <span className="text-[#eab308]">marche ?</span>
+          </h2>
+          <p className="text-sm text-gray-500 mt-1">Un processus simple et direct pour valider vos achats.</p>
         </div>
 
-        {/* Mode de paiement */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200/80 flex flex-col justify-between space-y-4">
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 text-[#1e3a8a]">
-              <div className="p-3 bg-blue-50 text-[#1e3a8a] rounded-xl border border-blue-100">
-                <HandCoins />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {etapesCommande.map((etape, index) => (
+            <div 
+              key={index} 
+              className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200/80 flex flex-col space-y-3 relative overflow-hidden group hover:border-[#eab308]/60 transition-all duration-300"
+            >
+              {/* Badge numéro en arrière-plan jaune très clair */}
+              <span className="absolute -top-4 -right-2 text-7xl font-black text-yellow-100/50 select-none pointer-events-none font-sans">
+                {index + 1}
+              </span>
+              
+              {/* Box icône modifiée en Jaune */}
+              <div className="p-3 bg-amber-100 border border-amber-200 rounded-xl w-fit relative z-10 shadow-sm">
+                {etape.icon}
               </div>
-              <h2 className="text-xl font-bold">Paiement en Main Propre</h2>
+              
+              <h3 className="font-bold text-lg text-gray-800 pt-1 group-hover:text-[#1e3a8a] transition-colors">
+                {etape.titre}
+              </h3>
+              <p className="text-sm text-gray-600 leading-relaxed relative z-10">{etape.desc}</p>
             </div>
-            <p className="text-gray-600 leading-relaxed">
-              Pas besoin de carte bancaire ou de paiement en ligne. Vous validez votre commande sur le site, et vous payez directement le livreur en espèces lorsque vous récupérez votre produit.
-            </p>
-            <div className="p-4 bg-amber-50 rounded-xl border border-[#eab308]/40 text-amber-950 text-sm font-medium">
-              💡 <span className="font-bold text-[#1e3a8a]">Information :</span> Pensez à préparer l'appoint lors de votre rendez-vous au point de retrait sélectionné.
-            </div>
-          </div>
+          ))}
+        </div>
+
+        {/* Note d'information importante */}
+        <div className="max-w-3xl mx-auto p-4 bg-amber-50 rounded-xl border-l-4 border-[#eab308] text-amber-950 text-sm font-medium shadow-sm flex items-center justify-center gap-2">
+          <span>💡</span>
+          <p>
+            <span className="font-bold text-[#1e3a8a]">Rappel important :</span> Assurez-vous de renseigner un numéro de téléphone valide lors de la commande afin que l'équipe puisse vous joindre rapidement sur WhatsApp !
+          </p>
         </div>
       </section>
 
       {/* SECTION FEEDBACK */}
       <section className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200/80 max-w-xl mx-auto space-y-6">
         <div className="text-center space-y-2">
-          <h2 className="text-xl font-bold text-gray-800">Votre avis compte !</h2>
+          <h2 className="text-xl font-bold text-gray-800">
+            Votre avis compte <span className="text-[#eab308]">!</span>
+          </h2>
           <p className="text-sm text-gray-500">Aidez-nous à améliorer la plateforme en partageant vos suggestions.</p>
         </div>
         <form onSubmit={handleFeedbackSubmit} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="form-control">
               <label className="label font-bold text-xs text-gray-600">Nom complet</label>
-              {/* Correction de la visibilité des bordures et états de focus */}
               <input 
                 type="text" 
                 className="w-full bg-[#f8fafc] rounded-xl border border-gray-300 p-3 text-sm text-gray-800 focus:border-[#1e3a8a] focus:ring-2 focus:ring-[#eab308]/30 outline-none transition-all shadow-inner" 
@@ -106,7 +122,7 @@ export function ShopHome() {
           </div>
           <button 
             type="submit" 
-            className="w-full bg-[#1e3a8a] hover:bg-blue-900 text-white font-black py-3 rounded-xl transition-all shadow-md active:scale-[0.99] border-b-4 border-blue-950 hover:border-blue-900"
+            className="w-full bg-[#1e3a8a] hover:bg-blue-900 text-white font-black py-3 rounded-xl transition-all shadow-md active:scale-[0.99] border-b-4 border-blue-950 hover:border-b-0 hover:pt-3.5"
           >
             ENVOYER LE FEEDBACK
           </button>
