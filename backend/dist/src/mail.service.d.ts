@@ -1,6 +1,6 @@
 export declare class MailService {
-    private transporter;
+    private resend;
     private readonly logger;
     constructor();
-    sendOrderNotificationEmailToAdmins(newOrder: any, adminEmails: string[]): Promise<void>;
+    sendOrderNotificationEmailToAdmins(newOrder: any): Promise<void>;
 }
