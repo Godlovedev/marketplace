@@ -61,7 +61,7 @@ export class OrderService {
         const admins = await this.prisma.user.findMany()
         const adminEmails = admins.map((admin) => admin.email)
 
-        this.mailService.sendOrderNotificationEmailToAdmins(newOrder, adminEmails)
+        await this.mailService.sendOrderNotificationEmailToAdmins(newOrder, adminEmails)
         return {message: "Commande envoyée."}
     };
 
